@@ -7,11 +7,14 @@ import RoutePage from "./pages/RoutePage";
 import StopPage from "./pages/StopPage";
 import {
     createSmartappDebugger,
-    createAssistant,
+    createAssistantsendData, createAssistant
 } from "@salutejs/client";
 
 import {reducer} from "./store.ts"
 import {Input} from "./components/Input";
+import SearchPage from "./pages/StartPage";
+import {Sheet} from "@sberdevices/plasma-ui";
+import StartPage from "./pages/StartPage";
 
 
 
@@ -38,7 +41,8 @@ export class App extends React.Component {
             short_name : "",
             long_name :"",
             reverse : false,
-            stops: []
+            stops0: [],
+            stops1: [],
         };
 
         this.assistant = initializeAssistant(() => this.getStateForAssistant() );
@@ -64,8 +68,11 @@ export class App extends React.Component {
         const state = {
                         short_name : "",
                         long_name :"",
-                        reverse : false,
-                        stops: []
+                        reverse : true,
+                        stops0: [],
+                        stops1: [],
+                        error:""
+
         };
         console.log('getStateForAssistant: state:', state)
         return state;
@@ -77,6 +84,8 @@ export class App extends React.Component {
             switch (action.type) {
                 case 'get_route':
                     return this.get_route(action);
+                case "rotate":
+                    return this.rotate(action);
 
 
                 default:
@@ -90,19 +99,49 @@ export class App extends React.Component {
             const response = await axios.get("https://mostrans-salute.vercel.app/schedule/route_info?short_name=" + action.short_name);
             const data = response.data;
             //const stopNames = data.stops_data_0.map((item) => item.stop_name);
-            console.log(data.stops_data_0);
+            console.log(data);
+
             this.setState({
                 short_name: action.short_name,
                 long_name: data.long_route_name,
-                reverse: false,
-                stops: data.stops_data_0
+                reverse: true,
+                stops0: data.stops_data_0 ,
+                stops1: data.stops_data_1,
+                error:""
             });
+
+            // this.sendData({action: {action_id: 'SELECT_CAP', parameters: {reverse:false}}})
+
             //const stopNames = data.stops_data_0.map((item) => item.stop_name);
         } catch (error) {
             console.error('Ошибка при получении остановок', error);
-            // this.setState({ stops: [] });
+            this.setState({ error:"Ошибка на сервере. \nСкоро починим" });
         }
 
+    }
+
+
+    rotate = (action) => {
+        this.setState({ reverse: !this.state.reverse})
+        this._send_action_value('done', "реверс");
+        return !this.state.reverse
+    }
+    _send_action_value = (action_id, value) =>{
+        const data = {
+            action: {
+                action_id: action_id,
+                parameters: {   // значение поля parameters может любым, но должно соответствовать серверной логике
+                    value: value, // см.файл src/sc/noteDone.sc смартаппа в Studio Code
+                }
+            }
+        };
+        const unsubscribe = this.assistant.sendData(
+            data,
+            (data) => {   // функция, вызываемая, если на sendData() был отправлен ответ
+                const {type, payload} = data;
+                console.log('sendData onData:', type, payload);
+                unsubscribe();
+            });
     }
 
 
@@ -117,17 +156,21 @@ export class App extends React.Component {
         console.log(this.getStateForAssistant());
 
 
+
   return (
       <>
-          {}
-        <RoutePage data = {this.state}/>
-          {}
+
+          {this.state.short_name =="" ? <StartPage  error = {this.state.error}/> :
+              <RoutePage send = {this._send_action_value} rotate = {this.rotate} data = {this.state}/>}
+
+
         {/*routes = {this.state.routes}*/}
         {/*getRoute = {(route) => { this.get_route({ type: "get_route", route }); }}*/}
         {/*/>*/}
 
-        {/*<StopPage name = {"Театральная площадь"} routes={[1,2,3,4,5,6]}/>*/}
-        {/*/!*<SearchPage/>*!/*/}
+        {/*<StopPage name = {"Тет
+        атральная площадь"} routes={[1,2,3,4,5,6]}/>*/}
+
       </>
 
     )

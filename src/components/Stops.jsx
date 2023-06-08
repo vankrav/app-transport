@@ -18,11 +18,12 @@ const Stops = ({stops, name}) => {
 
     return (
         <>
+            {stops.length!=0 ?
             <Card style={{marginBottom: 165}}>
                 <CardContent compact>
                     <Cell
                         content={<TextBoxBigTitle>Остановки</TextBoxBigTitle>}
-                        contentRight={<span style={{marginTop: 5}}>{name}</span>}
+                        contentRight={<span style={{marginTop: 5}}>маршрут: {name}</span>}
                     />
                     {/*{stops}*/}
                     {stops.map((stop, index) => (
@@ -40,7 +41,15 @@ const Stops = ({stops, name}) => {
                         />
                     ))}
                 </CardContent>
-            </Card>
+            </Card> :  <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-critical)"}}>
+                    <CardContent compact  >
+                        <Cell
+                            content={<TextBoxBigTitle>Остановки не найдены</TextBoxBigTitle>}
+
+
+                        />
+                    </CardContent>
+                </Card>}
         </>
     );
 };
