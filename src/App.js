@@ -1,18 +1,21 @@
 
 import React from 'react';
 import './App.css';
-
-import Stops from "./components/Stops";
+import axios from 'axios';
+//import data from './route_info.json';
 import RoutePage from "./pages/RoutePage";
 import StopPage from "./pages/StopPage";
 import {
     createSmartappDebugger,
     createAssistant,
 } from "@salutejs/client";
-import SearchPage from "./pages/SearchPage";
+
+import {reducer} from "./store.ts"
+import {Input} from "./components/Input";
 
 
-const initializeAssistant = (getState/*: any*/) => {
+
+const initializeAssistant = (getState) => {
     if (process.env.NODE_ENV === "development") {
         return createSmartappDebugger({
             token: process.env.REACT_APP_TOKEN ?? "",
@@ -23,24 +26,20 @@ const initializeAssistant = (getState/*: any*/) => {
     return createAssistant({ getState });
 };
 
-// // const stops = [
-//     "Парк Культуры",
-//     "Школа №12",
-//     "Торговый Центр",
-//
-//     ];
-// const routes = ["Автобус 90", "Трамвай 3"];
+
 
 export class App extends React.Component {
 
     constructor(props) {
         super(props);
         console.log('constructor');
-        {console.log(props.data)}
 
         this.state = {
-            notes: [],
-        }
+            short_name : "",
+            long_name :"",
+            reverse : false,
+            stops: []
+        };
 
         this.assistant = initializeAssistant(() => this.getStateForAssistant() );
         this.assistant.on("data", (event/*: any*/) => {
@@ -54,6 +53,8 @@ export class App extends React.Component {
 
     }
 
+
+
     componentDidMount() {
         console.log('componentDidMount');
     }
@@ -61,15 +62,10 @@ export class App extends React.Component {
     getStateForAssistant () {
         console.log('getStateForAssistant: this.state:', this.state)
         const state = {
-            item_selector: {
-                items: this.state.notes.map(
-                    ({ id, title }, index) => ({
-                        number: index + 1,
-                        id,
-                        title,
-                    })
-                ),
-            },
+                        short_name : "",
+                        long_name :"",
+                        reverse : false,
+                        stops: []
         };
         console.log('getStateForAssistant: state:', state)
         return state;
@@ -79,31 +75,59 @@ export class App extends React.Component {
         console.log('dispatchAssistantAction', action);
         if (action) {
             switch (action.type) {
-                case 'add_note':
-                    return this.add_note(action);
+                case 'get_route':
+                    return this.get_route(action);
 
-                case 'done_note':
-                    return this.done_note(action);
-
-                case 'delete_note':
-                    return this.delete_note(action);
 
                 default:
                     throw new Error();
             }
         }
     }
+    get_route = async (action) => {
+        console.log('get_route', action);
+        try {
+            const response = await axios.get("https://mostrans-salute.vercel.app/schedule/route_info?short_name=" + action.short_name);
+            const data = response.data;
+            //const stopNames = data.stops_data_0.map((item) => item.stop_name);
+            console.log(data.stops_data_0);
+            this.setState({
+                short_name: action.short_name,
+                long_name: data.long_route_name,
+                reverse: false,
+                stops: data.stops_data_0
+            });
+            //const stopNames = data.stops_data_0.map((item) => item.stop_name);
+        } catch (error) {
+            console.error('Ошибка при получении остановок', error);
+            // this.setState({ stops: [] });
+        }
+
+    }
+
+
+
+
 
 
     render() {
         console.log('render');
+        console.log('!!!!!!!!!!');
+        //console.log(this.state.stops)
+        console.log(this.getStateForAssistant());
+
 
   return (
       <>
-        <RoutePage/>
+          {}
+        <RoutePage data = {this.state}/>
+          {}
+        {/*routes = {this.state.routes}*/}
+        {/*getRoute = {(route) => { this.get_route({ type: "get_route", route }); }}*/}
+        {/*/>*/}
 
-        <StopPage name = {"Театральная площадь"} routes={[1,2,3,4,5,6]}/>
-        {/*<SearchPage/>*/}
+        {/*<StopPage name = {"Театральная площадь"} routes={[1,2,3,4,5,6]}/>*/}
+        {/*/!*<SearchPage/>*!/*/}
       </>
 
     )

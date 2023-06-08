@@ -10,6 +10,7 @@ import {
     TextBoxTitle
 } from "@sberdevices/plasma-ui";
 import {IconArrowLeft, IconArrowRight, IconLocation, IconLocationFill} from "@salutejs/plasma-icons";
+import { IconRefresh } from '@salutejs/plasma-icons';
 
 const Name = ({ name }) => {
     return (
@@ -17,7 +18,7 @@ const Name = ({ name }) => {
             <CardContent compact>
                 <Cell
                     content={<TextBoxBigTitle>{name}</TextBoxBigTitle>}
-                    contentRight={<IconArrowRight onClick={console.log("hi")} size="s" color="inherit" />}
+                    contentRight={<IconRefresh onClick={console.log("hi")} size="s" color="inherit" />}
                 />
             </CardContent>
         </Card>

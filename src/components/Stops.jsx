@@ -9,52 +9,39 @@ import {
     TextBoxBigTitle, TextBoxSubTitle,
     TextBoxTitle
 } from "@sberdevices/plasma-ui";
-import {IconArrowLeft, IconArrowRight, IconLocation, IconLocationFill} from "@salutejs/plasma-icons";
+import {IconArrowLeft, IconArrowRight, IconCartAlt, IconLocation, IconLocationFill} from "@salutejs/plasma-icons";
+import { IconMinus } from '@salutejs/plasma-icons';
 
 
-export class Stops extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log('constructor stops');
-        console.log();
 
-        this.state = {}
-    }
-        render(props)
-        {
-            return (
-                <>
-                    <Card style={{marginBottom: 15}}>
-                        <CardContent compact>
-                            <Cell
-                                content={<TextBoxBigTitle>Остановки</TextBoxBigTitle>}
-                                contentRight={<span style={{marginTop: 5}}>{props}</span>}
-                            />
-                            {/*{props.stops.map((stop, index) => (*/}
-                            {/*    // <li key={index}>{stop}</li>*/}
-                            {/*    <CellListItem*/}
-                            {/*        contentLeft={*/}
-                            {/*            <CellIcon>*/}
-                            {/*                <IconLocation size="s" color="inherit" />*/}
-                            {/*            </CellIcon>*/}
-                            {/*        }*/}
-                            {/*        content={*/}
-                            {/*            <TextBox>*/}
-                            {/*                <TextBoxTitle>{stop}</TextBoxTitle>*/}
-                            {/*            </TextBox>*/}
-                            {/*        }*/}
-                            {/*        contentRight={<CellDisclosure />}*/}
-                            {/*    />*/}
-                            {/*))}*/}
-                            {console.log(props)}
+const Stops = ({stops, name}) => {
 
+    return (
+        <>
+            <Card style={{marginBottom: 165}}>
+                <CardContent compact>
+                    <Cell
+                        content={<TextBoxBigTitle>Остановки</TextBoxBigTitle>}
+                        contentRight={<span style={{marginTop: 5}}>{name}</span>}
+                    />
+                    {/*{stops}*/}
+                    {stops.map((stop, index) => (
 
-                        </CardContent>
-                    </Card>
-                </>
-            )
-        }
-
-    }
-
+                        <CellListItem
+                            contentLeft={
+                                <span style={{marginRight: "8px", marginBottom: "1px"}}>{index + 1}</span>
+                            }
+                            content={
+                                <TextBox>
+                                    <TextBoxTitle>{stop}</TextBoxTitle>
+                                </TextBox>
+                            }
+                            // contentRight={<CellDisclosure />}
+                        />
+                    ))}
+                </CardContent>
+            </Card>
+        </>
+    );
+};
 export default Stops;
