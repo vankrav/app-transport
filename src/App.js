@@ -66,12 +66,12 @@ export class App extends React.Component {
     getStateForAssistant () {
         console.log('getStateForAssistant: this.state:', this.state)
         const state = {
-                        short_name : "",
-                        long_name :"",
-                        reverse : true,
-                        stops0: [],
-                        stops1: [],
-                        error:""
+            short_name : "",
+            long_name :"",
+            reverse : true,
+            stops0: [],
+            stops1: [],
+            error:""
 
         };
         console.log('getStateForAssistant: state:', state)
@@ -110,7 +110,7 @@ export class App extends React.Component {
                 error:""
             });
 
-            // this.sendData({action: {action_id: 'SELECT_CAP', parameters: {reverse:false}}})
+            //this._send_action_value('маршрут', "ок");
 
             //const stopNames = data.stops_data_0.map((item) => item.stop_name);
         } catch (error) {
@@ -123,15 +123,16 @@ export class App extends React.Component {
 
     rotate = (action) => {
         this.setState({ reverse: !this.state.reverse})
-        this._send_action_value('done', "реверс");
+        //this._send_action_value('реверс', "ок");
         return !this.state.reverse
     }
-    _send_action_value = (action_id, value) =>{
+    _send_action_value = (action_id, value, route) =>{
         const data = {
             action: {
                 action_id: action_id,
                 parameters: {   // значение поля parameters может любым, но должно соответствовать серверной логике
                     value: value, // см.файл src/sc/noteDone.sc смартаппа в Studio Code
+                    route: route, //
                 }
             }
         };
@@ -157,23 +158,23 @@ export class App extends React.Component {
 
 
 
-  return (
-      <>
+        return (
+            <>
 
-          {this.state.short_name =="" ? <StartPage  error = {this.state.error}/> :
-              <RoutePage send = {this._send_action_value} rotate = {this.rotate} data = {this.state}/>}
+                {this.state.short_name =="" ? <StartPage  error = {this.state.error}/> :
+                    <RoutePage send = {this._send_action_value} rotate = {this.rotate} data = {this.state}/>}
 
 
-        {/*routes = {this.state.routes}*/}
-        {/*getRoute = {(route) => { this.get_route({ type: "get_route", route }); }}*/}
-        {/*/>*/}
+                {/*routes = {this.state.routes}*/}
+                {/*getRoute = {(route) => { this.get_route({ type: "get_route", route }); }}*/}
+                {/*/>*/}
 
-        {/*<StopPage name = {"Тет
+                {/*<StopPage name = {"Тет
         атральная площадь"} routes={[1,2,3,4,5,6]}/>*/}
 
-      </>
+            </>
 
-    )
+        )
     }
 
 }
