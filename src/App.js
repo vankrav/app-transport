@@ -93,7 +93,7 @@ export class App extends React.Component {
             }
         }
     }
-    get_route = async (action) => {
+    async get_route(action) {
         console.log('get_route', action);
         try {
             const response = await axios.get("https://mostrans-salute.vercel.app/schedule/route_info?short_name=" + action.short_name);
@@ -121,7 +121,7 @@ export class App extends React.Component {
     }
 
 
-    rotate = (action) => {
+    rotate(action) {
         this.setState({ reverse: !this.state.reverse})
         //this._send_action_value('реверс', "ок");
         return !this.state.reverse
