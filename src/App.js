@@ -96,7 +96,7 @@ export class App extends React.Component {
     async get_route(action) {
         console.log('get_route', action);
         try {
-            const response = await axios.get("https://mostrans-salute.vercel.app/schedule/route_info?short_name=" + action.short_name);
+            const response = await axios.get("https://mostrans-salute.vercel.app/schedule/get_route_info?short_name=" + action.short_name);
             const data = response.data;
             //const stopNames = data.stops_data_0.map((item) => item.stop_name);
             console.log(data);
@@ -159,7 +159,7 @@ export class App extends React.Component {
 
 
         return (
-            <>
+            <div style={{ outline: 'none'}}>
 
                 {this.state.short_name =="" ? <StartPage  error = {this.state.error}/> :
                     <RoutePage send = {this._send_action_value} rotate = {this.rotate} data = {this.state}/>}
@@ -172,7 +172,7 @@ export class App extends React.Component {
                 {/*<StopPage name = {"Тет
         атральная площадь"} routes={[1,2,3,4,5,6]}/>*/}
 
-            </>
+            </div>
 
         )
     }
