@@ -96,7 +96,7 @@ export class App extends React.Component {
     async get_route(action) {
         console.log('get_route', action);
         try {
-            const response = await axios.get("https://mostrans-salute.vercel.app/schedule/get_route_info?short_name=" + action.short_name);
+            const response = await axios.get("https://mostrans-salute.vercel.app/schedule/route_info?short_name=" + action.short_name);
             const data = response.data;
             //const stopNames = data.stops_data_0.map((item) => item.stop_name);
             console.log(data);
@@ -121,7 +121,7 @@ export class App extends React.Component {
     }
 
 
-    rotate(action) {
+    rotate = (action) => {
         this.setState({ reverse: !this.state.reverse})
         //this._send_action_value('реверс', "ок");
         return !this.state.reverse

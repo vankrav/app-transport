@@ -24,7 +24,7 @@ const StartPage = ({error}) => {
             <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-success)"}}>
                 <CardContent compact  >
                     <Cell
-                        content={<TextBoxBigTitle>Добро пожаловать <br/> в Smart app <br/>"Маршруты надземного транспорта"! </TextBoxBigTitle>}
+                        content={<TextBoxBigTitle>Добро пожаловать <br/> в приложение <br/>"Маршруты надземного транспорта"! </TextBoxBigTitle>}
 
 
                     />
@@ -34,7 +34,8 @@ const StartPage = ({error}) => {
                     <CardContent compact  >
                         <Cell
                             content={<TextBoxBigTitle>
-                                Назовите маршрут, чтобы посмотреть остановки.
+                                Для просмотра остановок необходимо назвать маршрут, например <br/>"Покажи маршрут 47а"
+
                         </TextBoxBigTitle>}
 
 
@@ -47,7 +48,7 @@ const StartPage = ({error}) => {
                     <Cell
                         content={<TextBoxBigTitle>
 
-                            Скажи "разверни", чтобы увидеть обратный путь</TextBoxBigTitle>}
+                            Для получения обратного пути используется команда <br/>"Развернуть"</TextBoxBigTitle>}
 
 
                     />
