@@ -36,7 +36,7 @@ export const RoutePage = ({data, rotate, send}) => {
         }
         return (
 
-            <Container style={{ width: '70%', minWidth: "350px"}}>
+            <Container style={{ width: '70%', minWidth: "350px", outline: "none"}}>
                 <Header title = "Расписание транспорта"/>
                 <Name rotate = {rotate} name = {data.long_name} />
                 <Stops name = {data.short_name} stops={stops}/>
@@ -50,9 +50,9 @@ export const RoutePage = ({data, rotate, send}) => {
         send(val, "ошибка", data.short_name)
         return (
 
-            <Container style={{ width: '70%', minWidth: "350px"}}>
+            <Container style={{ width: '70%', minWidth: "350px", outline: "none"}}>
                 <Header title = "Расписание транспорта"/>
-                <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-critical)"}}>
+                <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-critical)", outline: "none"}}>
                     <CardContent compact  >
                         <Cell
                             content={<TextBoxBigTitle>Маршрут {data.short_name} не найден</TextBoxBigTitle>}

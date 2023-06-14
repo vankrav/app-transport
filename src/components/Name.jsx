@@ -13,16 +13,16 @@ import {
 import {IconArrowLeft, IconArrowRight, IconLocation, IconLocationFill} from "@salutejs/plasma-icons";
 import { IconRefresh } from '@salutejs/plasma-icons';
 import { BsArrowDownUp } from "react-icons/bs";
-
+import style from "../App.css"
 const Name = ({ name, rotate }) => {
     return (
         <>
         <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-success)"}}>
-            <CardContent compact  onClick={rotate}>
+            <CardContent compact  >
                 <Cell
                     content={<TextBoxBigTitle>{name}</TextBoxBigTitle>}
 
-                    contentRight={<BsArrowDownUp style={{ width:"24px", height: "auto", transform: "scaleY(1)"}}/>}
+                    contentRight={<BsArrowDownUp  className={"button"} onClick={rotate} style={{   width:"24px", height: "auto", transform: "scaleY(1)"}}/>}
                 />
             </CardContent>
         </Card>

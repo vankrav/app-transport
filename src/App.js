@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React  from 'react';
 import './App.css';
 import axios from 'axios';
 //import data from './route_info.json';
@@ -15,6 +15,8 @@ import {Input} from "./components/Input";
 import SearchPage from "./pages/StartPage";
 import {Sheet} from "@sberdevices/plasma-ui";
 import StartPage from "./pages/StartPage";
+import PropTypes from 'prop-types';
+
 
 
 
@@ -31,6 +33,7 @@ const initializeAssistant = (getState) => {
 
 
 
+
 export class App extends React.Component {
 
     constructor(props) {
@@ -43,6 +46,7 @@ export class App extends React.Component {
             reverse : false,
             stops0: [],
             stops1: [],
+            page: 'start',
         };
 
         this.assistant = initializeAssistant(() => this.getStateForAssistant() );
@@ -57,10 +61,25 @@ export class App extends React.Component {
 
     }
 
-
-
     componentDidMount() {
-        console.log('componentDidMount');
+        document.addEventListener('keydown', this.handleKeyDown);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyDown);
+    }
+
+    handleKeyDown = (event) => {
+        console.log(event.keyCode)
+        if (event.keyCode === 37 || event.keyCode === "Back" || event.keyCode === 4) {
+            this.goBack();
+            console.log("back")
+        }
+    };
+
+    goBack() {
+        this._send_action_value("start", "ок", "")
+        this.setState({page:"start"})
     }
 
     getStateForAssistant () {
@@ -107,6 +126,7 @@ export class App extends React.Component {
                 reverse: true,
                 stops0: data.stops_data_0 ,
                 stops1: data.stops_data_1,
+                page:"route",
                 error:""
             });
 
@@ -161,8 +181,8 @@ export class App extends React.Component {
         return (
             <div style={{ outline: 'none'}}>
 
-                {this.state.short_name =="" ? <StartPage  error = {this.state.error}/> :
-                    <RoutePage send = {this._send_action_value} rotate = {this.rotate} data = {this.state}/>}
+                {this.state.page =="start" && <StartPage  error = {this.state.error}/> }
+                {this.state.page =="route" && <RoutePage send = {this._send_action_value} rotate = {this.rotate} data = {this.state}/>}
 
 
                 {/*routes = {this.state.routes}*/}

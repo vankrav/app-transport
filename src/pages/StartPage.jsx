@@ -18,19 +18,19 @@ const StartPage = ({error}) => {
     return (
         <>
 
-            <Container style={{ width: '70%', minWidth: "350px"}}>
+            <Container style={{ width: '70%', minWidth: "350px", outline: "none"}}>
 
                 <Header title = "Расписание транспорта"/>
-            <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-success)"}}>
+            <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-success)", outline: "none"}}>
                 <CardContent compact  >
                     <Cell
-                        content={<TextBoxBigTitle>Добро пожаловать <br/> в приложение <br/> «Маршруты надземного транспорта»! </TextBoxBigTitle>}
+                        content={<TextBoxBigTitle>Добро пожаловать  в приложение <br/> «Маршруты автобусов Москвы»! </TextBoxBigTitle>}
 
 
                     />
                 </CardContent>
             </Card>
-                <Card backgroundColor={"var(--plasma-colors-accent)"} style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-accent)"}}>
+                <Card backgroundColor={"var(--plasma-colors-accent)"} style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-accent)", outline: "none"}}>
                     <CardContent compact  >
                         <Cell
                             content={<TextBoxBigTitle>
@@ -43,7 +43,7 @@ const StartPage = ({error}) => {
                     </CardContent>
                 </Card>
 
-            <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-accent)"}}>
+            <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-accent)", outline: "none"}}>
                 <CardContent compact  >
                     <Cell
                         content={<TextBoxBigTitle>

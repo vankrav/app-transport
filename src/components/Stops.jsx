@@ -19,18 +19,18 @@ const Stops = ({stops, name}) => {
     return (
         <>
             {stops.length!=0 ?
-            <Card style={{marginBottom: 165}}>
+            <Card style={{marginBottom: 165, outline: "none"}}>
                 <CardContent compact>
                     <Cell
                         content={<TextBoxBigTitle>Остановки</TextBoxBigTitle>}
-                        contentRight={<span style={{marginTop: 5}}>маршрут: {name}</span>}
+                        contentRight={<span style={{marginTop: 5, outline: "none"}}>маршрут: {name}</span>}
                     />
                     {/*{stops}*/}
                     {stops.map((stop, index) => (
 
                         <CellListItem
                             contentLeft={
-                                <span style={{marginRight: "8px", marginBottom: "1px"}}>{index + 1}</span>
+                                <span style={{marginRight: "8px", marginBottom: "1px", outline: "none"}}>{index + 1}</span>
                             }
                             content={
                                 <TextBox>
@@ -41,7 +41,7 @@ const Stops = ({stops, name}) => {
                         />
                     ))}
                 </CardContent>
-            </Card> :  <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-critical)"}}>
+            </Card> :  <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-critical)", outline: "none"}}>
                     <CardContent compact  >
                         <Cell
                             content={<TextBoxBigTitle>Остановки не найдены</TextBoxBigTitle>}
