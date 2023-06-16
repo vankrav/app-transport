@@ -21,7 +21,14 @@
   }
 }
 
-.button:hover {
-  width:1000px;
+
+/*.button-class:focus-visible {*/
+/*  outline: 5px solid white;*/
+/*}*/
+.button-class:hover {
+  color: #c5c5c5;
+}
+
+.button-class {
 
 }

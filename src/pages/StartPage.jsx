@@ -43,7 +43,7 @@ const StartPage = ({error}) => {
                     </CardContent>
                 </Card>
 
-            <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-accent)", outline: "none"}}>
+            <Card style={{ marginBottom: 295, backgroundColor : "var(--plasma-colors-accent)", outline: "none"}}>
                 <CardContent compact  >
                     <Cell
                         content={<TextBoxBigTitle>

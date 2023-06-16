@@ -3,24 +3,24 @@ import {Button, Card, Header} from "@salutejs/plasma-ui";
 import Stops from "../components/Stops";
 import Name from "../components/Name";
 import { IconChevronLeft } from '@salutejs/plasma-icons';
-
+import "../App.css"
+import {useEffect, useState} from "react";
 
 
 let stopNames = []
+ // инициируем переход на следующую страницу
 
+
+// useEffect(() => {
+//     window.history.replaceState({ page: 'previous' }, ''); // устанавливаем текущую страницу
+//     window.onpopstate = ({ state }) => {
+//         setPage(state.page); // выполняем переход на заданную страницу: next - по вызову handleNext или previous - по нажатию кнопки back
+//     }
+// }, []);
 
 export const RoutePage = ({data, rotate, send, goBack}) => {
 
-    // if(data["short_name"] != ""){
-    console.log("data")
-    console.log(data.reverse)
-    //     let s = data["stops"];
-    //     s = s.toString();
-    //     console.log(s);
-    //     s = JSON.parse(s);
-    //    stopNames = s.map((item) => item.stop_name);
-    console.log(data.stops0)
-    // }
+
 
     if (data.reverse) {				//С.И.: добавляю код для перессылки данных
         var val = 'маршрут'
@@ -39,7 +39,7 @@ export const RoutePage = ({data, rotate, send, goBack}) => {
             <Container style={{ width: '70%', minWidth: "350px", outline: "none"}}>
                 <div style={{ display: "inline"}}>
 
-                <Header back={true} onClick={goBack} title = "Расписание транспорта"/>
+                <Header back={true} onBackClick={goBack} title = "Расписание транспорта"/>
             </div>
                 <Name rotate = {rotate} name = {data.long_name} />
                 <Stops name = {data.short_name} stops={stops}/>
@@ -55,7 +55,7 @@ export const RoutePage = ({data, rotate, send, goBack}) => {
 
             <Container style={{ width: '70%', minWidth: "350px", outline: "none"}}>
 
-                <Header back={true} onClick={goBack} title = "Расписание транспорта"/>
+                <Header back={true} onBackClick={goBack} title = "Расписание транспорта"/>
                 <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-critical)", outline: "none"}}>
                     <CardContent compact  >
                         <Cell

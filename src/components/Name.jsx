@@ -13,7 +13,7 @@ import {
 import {IconArrowLeft, IconArrowRight, IconLocation, IconLocationFill} from "@salutejs/plasma-icons";
 import { IconRefresh } from '@salutejs/plasma-icons';
 import { BsArrowDownUp } from "react-icons/bs";
-import style from "../App.css"
+import "../App.css"
 const Name = ({ name, rotate }) => {
     return (
         <>
@@ -22,7 +22,7 @@ const Name = ({ name, rotate }) => {
                 <Cell
                     content={<TextBoxBigTitle>{name}</TextBoxBigTitle>}
 
-                    contentRight={<BsArrowDownUp  className={"button"} onClick={rotate} style={{   width:"24px", height: "auto", transform: "scaleY(1)"}}/>}
+                    // contentRight={<BsArrowDownUp  className="button-class" onClick={rotate} />}
                 />
             </CardContent>
         </Card>

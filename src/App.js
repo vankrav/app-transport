@@ -1,5 +1,5 @@
 
-import React  from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import axios from 'axios';
 //import data from './route_info.json';
@@ -48,6 +48,8 @@ export class App extends React.Component {
             stops1: [],
             page: 'start',
         };
+        this.handleNext = this.handleNext.bind(this);
+        this.handlePopState = this.handlePopState.bind(this);
 
         this.assistant = initializeAssistant(() => this.getStateForAssistant() );
         this.assistant.on("data", (event/*: any*/) => {
@@ -61,21 +63,33 @@ export class App extends React.Component {
 
     }
 
+    handleNext() {
+        window.history.pushState({ page: 'start' }, '');
+    }
+
+    handlePopState(event) {
+        this.setState({ page: event.state.page });
+    }
+
     componentDidMount() {
-        document.addEventListener('keydown', this.handleKeyDown);
+        window.history.replaceState({ page: 'start' }, '');
+        window.onpopstate = this.handlePopState;
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleKeyDown);
+        window.onpopstate = null;
     }
 
-    handleKeyDown = (event) => {
-        console.log(event.keyCode)
-        if (event.keyCode === 37 || event.keyCode === "Back" || event.keyCode === 4) {
-            this.goBack();
-            console.log("back")
-        }
-    };
+
+
+
+    // handleKeyDown = (event) => {
+    //     console.log(event.keyCode)
+    //     if (event.keyCode === 37 || event.keyCode === "Back" || event.keyCode === 4) {
+    //         this.goBack();
+    //         console.log("back")
+    //     }
+    // };
 
     goBack = (action) => {
         this._send_action_value("start", "ок", "")
@@ -113,6 +127,7 @@ export class App extends React.Component {
     }
     async get_route(action) {
         console.log('get_route', action);
+        this.handleNext();
         try {
             const response = await axios.get("https://mostrans-salute.vercel.app/schedule/route_info?short_name=" + action.short_name);
             const data = response.data;
@@ -176,7 +191,7 @@ export class App extends React.Component {
 
 
         return (
-            <div style={{ outline: 'none'}}>
+            <div style={{ outline: 0}}>
 
                 {this.state.page =="start" && <StartPage  error = {this.state.error}/> }
                 {this.state.page =="route" && <RoutePage send = {this._send_action_value} goBack = {this.goBack} rotate = {this.rotate} data = {this.state}/>}
