@@ -77,7 +77,7 @@ export class App extends React.Component {
         }
     };
 
-    goBack() {
+    goBack = (action) => {
         this._send_action_value("start", "ок", "")
         this.setState({page:"start"})
     }
@@ -96,7 +96,6 @@ export class App extends React.Component {
         console.log('getStateForAssistant: state:', state)
         return state;
     }
-
     dispatchAssistantAction (action) {
         console.log('dispatchAssistantAction', action);
         if (action) {
@@ -139,8 +138,6 @@ export class App extends React.Component {
         }
 
     }
-
-
     rotate = (action) => {
         this.setState({ reverse: !this.state.reverse})
         //this._send_action_value('реверс', "ок");
@@ -182,15 +179,10 @@ export class App extends React.Component {
             <div style={{ outline: 'none'}}>
 
                 {this.state.page =="start" && <StartPage  error = {this.state.error}/> }
-                {this.state.page =="route" && <RoutePage send = {this._send_action_value} rotate = {this.rotate} data = {this.state}/>}
+                {this.state.page =="route" && <RoutePage send = {this._send_action_value} goBack = {this.goBack} rotate = {this.rotate} data = {this.state}/>}
 
 
-                {/*routes = {this.state.routes}*/}
-                {/*getRoute = {(route) => { this.get_route({ type: "get_route", route }); }}*/}
-                {/*/>*/}
 
-                {/*<StopPage name = {"Тет
-        атральная площадь"} routes={[1,2,3,4,5,6]}/>*/}
 
             </div>
 

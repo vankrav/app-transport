@@ -2,14 +2,14 @@ import {CardContent, Cell, Container, TextBoxBigTitle} from "@sberdevices/plasma
 import {Button, Card, Header} from "@salutejs/plasma-ui";
 import Stops from "../components/Stops";
 import Name from "../components/Name";
-
+import { IconChevronLeft } from '@salutejs/plasma-icons';
 
 
 
 let stopNames = []
 
 
-export const RoutePage = ({data, rotate, send}) => {
+export const RoutePage = ({data, rotate, send, goBack}) => {
 
     // if(data["short_name"] != ""){
     console.log("data")
@@ -37,7 +37,10 @@ export const RoutePage = ({data, rotate, send}) => {
         return (
 
             <Container style={{ width: '70%', minWidth: "350px", outline: "none"}}>
-                <Header title = "Расписание транспорта"/>
+                <div style={{ display: "inline"}}>
+
+                <Header back={true} onClick={goBack} title = "Расписание транспорта"/>
+            </div>
                 <Name rotate = {rotate} name = {data.long_name} />
                 <Stops name = {data.short_name} stops={stops}/>
 
@@ -51,7 +54,8 @@ export const RoutePage = ({data, rotate, send}) => {
         return (
 
             <Container style={{ width: '70%', minWidth: "350px", outline: "none"}}>
-                <Header title = "Расписание транспорта"/>
+
+                <Header back={true} onClick={goBack} title = "Расписание транспорта"/>
                 <Card style={{ marginBottom: 15, backgroundColor : "var(--plasma-colors-critical)", outline: "none"}}>
                     <CardContent compact  >
                         <Cell
