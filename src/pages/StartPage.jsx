@@ -42,8 +42,8 @@ const StartPage = ({error}) => {
                         />
                     </CardContent>
                 </Card>
-
-            <Card style={{ marginBottom: 295, backgroundColor : "var(--plasma-colors-accent)", outline: "none"}}>
+                {(window.screen.height < 850 && window.screen.width > 1100 ) ?
+            <Card style={{ marginBottom: 395, backgroundColor : "var(--plasma-colors-accent)", outline: "none"}}>
                 <CardContent compact  >
                     <Cell
                         content={<TextBoxBigTitle>
@@ -53,7 +53,21 @@ const StartPage = ({error}) => {
 
                     />
                 </CardContent>
+                {console.log("puuul")}
             </Card>
+:
+                <Card style={{  backgroundColor : "var(--plasma-colors-accent)", outline: "none"}}>
+                    <CardContent compact  >
+                        <Cell
+                            content={<TextBoxBigTitle>
+
+                                Для получения обратного пути используется команда: <br/>«Развернуть»</TextBoxBigTitle>}
+
+
+                        />
+                    </CardContent>
+                    {console.log("nnooooo puuul")}
+                </Card>}
 
 
             </Container>

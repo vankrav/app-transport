@@ -22,10 +22,11 @@ import PropTypes from 'prop-types';
 
 const initializeAssistant = (getState) => {
     if (process.env.NODE_ENV === "development") {
-        return createSmartappDebugger({
+        return createSmartappDebugger(  {
             token: process.env.REACT_APP_TOKEN ?? "",
             initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
             getState,
+            surface: "STARGATE"
         });
     }
     return createAssistant({ getState });
@@ -187,7 +188,7 @@ export class App extends React.Component {
         console.log('!!!!!!!!!!');
         //console.log(this.state.stops)
         console.log(this.getStateForAssistant());
-
+        console.log(window.screen.height);
 
 
         return (

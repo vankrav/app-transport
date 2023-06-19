@@ -19,7 +19,7 @@ const Stops = ({stops, name}) => {
     return (
         <>
             {stops.length!=0 ?
-            <Card style={{marginBottom: 165, outline: "none"}}>
+            <Card style={{marginBottom: 365, outline: "none"}}>
                 <CardContent compact>
                     <Cell
                         content={<TextBoxBigTitle>Остановки</TextBoxBigTitle>}
